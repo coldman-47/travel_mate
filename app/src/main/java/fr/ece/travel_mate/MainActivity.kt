@@ -1,23 +1,20 @@
 package fr.ece.travel_mate
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.Button
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import fr.ece.travel_mate.databinding.ActivityMainBinding
 import fr.ece.travel_mate.databinding.HomeBinding
 import fr.ece.travel_mate.databinding.LoginBinding
 import fr.ece.travel_mate.databinding.RegisterBinding
+import java.lang.Exception
+import java.util.logging.Logger
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,14 +26,23 @@ class MainActivity : AppCompatActivity() {
         binding = LoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var btn = findViewById<Button>(R.id.loginBtn)
-        var registerBtn = findViewById<Button>(R.id.registerLink)
+        val btn = findViewById<Button>(R.id.loginBtn)
+        val registerBtn = findViewById<Button>(R.id.registerLink)
 
         btn.setOnClickListener(View.OnClickListener {
             setContentView(HomeBinding.inflate(layoutInflater).root)
         })
         registerBtn.setOnClickListener(View.OnClickListener {
             setContentView(RegisterBinding.inflate(layoutInflater).root)
+            val loginLink: Button = findViewById(R.id.loginLink)
+            try {
+                loginLink.setOnClickListener(View.OnClickListener {
+                    setContentView(binding.root)
+                })
+            } catch (e: Exception) {
+                Logger.getLogger(MainActivity::class.java.name).info("boom")
+                Logger.getLogger(MainActivity::class.java.name).severe(e.message)
+            }
         })
 
         /*

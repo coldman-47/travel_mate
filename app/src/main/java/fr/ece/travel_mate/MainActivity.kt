@@ -31,18 +31,17 @@ class MainActivity : AppCompatActivity() {
 
         btn.setOnClickListener(View.OnClickListener {
             setContentView(HomeBinding.inflate(layoutInflater).root)
+            val hotelBtn = findViewById<Button>(R.id.hotelBtn)
+            hotelBtn.setOnClickListener({
+                setContentView(binding.root)
+            })
         })
         registerBtn.setOnClickListener(View.OnClickListener {
             setContentView(RegisterBinding.inflate(layoutInflater).root)
             val loginLink: Button = findViewById(R.id.loginLink)
-            try {
                 loginLink.setOnClickListener(View.OnClickListener {
                     setContentView(binding.root)
                 })
-            } catch (e: Exception) {
-                Logger.getLogger(MainActivity::class.java.name).info("boom")
-                Logger.getLogger(MainActivity::class.java.name).severe(e.message)
-            }
         })
 
         /*

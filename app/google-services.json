@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "700671396463",
+    "project_id": "travel-f9d57",
+    "storage_bucket": "travel-f9d57.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:700671396463:android:6e649104582f4d1c9ddb9a",
+        "android_client_info": {
+          "package_name": "fr.ece.travel_mate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkR3wPbHSCYP3bR5FmTi2piDLPliz-nes"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

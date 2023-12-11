@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,17 +15,20 @@
         android:theme="@style/Theme.Travelmate"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".InscriptionActivity"
             android:exported="false" />
+=======
+            android:name=".HomeActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:exported="false"
+            android:label="@string/title_activity_home" />
+>>>>>>> 8821cf6 (hotels)
         <activity
             android:name=".LoginActivity"
             android:exported="false"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.Travelmate" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
 
         <meta-data
             android:name="com.google.android.actions"

@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = LoginBinding.inflate(layoutInflater)
         val sharedPreferences = getSharedPreferences("login", MODE_PRIVATE)
-        Log.d(TAG, "boom "+sharedPreferences.all["user"].toString())
         if (sharedPreferences.all["user"] != null) {
             loadHomePage()
         } else {

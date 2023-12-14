@@ -36,6 +36,15 @@ class MainActivity : AppCompatActivity() {
         val btn = findViewById<Button>(R.id.loginBtn)
         val registerBtn = findViewById<Button>(R.id.registerLink)
 
+        registerBtn.setOnClickListener(View.OnClickListener {
+            setContentView(RegisterBinding.inflate(layoutInflater).root)
+            val loginLink: Button = findViewById(R.id.loginLink)
+
+            loginLink.setOnClickListener(View.OnClickListener {
+                setContentView(binding.root)
+            })
+        })
+
         btn.setOnClickListener(View.OnClickListener {
             auth.signInWithEmailAndPassword("jenny@ece.fr", "groupe4")
                 .addOnCompleteListener(this) { task ->
@@ -59,13 +68,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
         })
-        registerBtn.setOnClickListener(View.OnClickListener {
-            setContentView(RegisterBinding.inflate(layoutInflater).root)
-            val loginLink: Button = findViewById(R.id.loginLink)
-                loginLink.setOnClickListener(View.OnClickListener {
-                    setContentView(binding.root)
-                })
-        })
+
 
         /*
         binding = ActivityMainBinding.inflate(layoutInflater)

@@ -69,15 +69,17 @@
                             app:layout_constraintTop_toTopOf="@+id/imageView19" />
 
                         <ImageButton
-                            android:id="@+id/imageButton"
-                            style="@android:style/Widget.Material.ImageButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/logoutBtn"
+                            style="@style/Widget.AppCompat.ImageButton"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:background="@android:color/holo_red_dark"
                             android:backgroundTint="#00754646"
+                            android:contentDescription="Déconnexion"
+                            android:src="@drawable/logout"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:src="@drawable/iconoir_bell_notification" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,9 +1,12 @@
 package fr.ece.travel_mate
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -24,6 +27,12 @@ class HomeActivity : AppCompatActivity() {
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        findViewById<ImageButton>(R.id.logoutBtn).setOnClickListener {
+            val sharedPreferences = getSharedPreferences("login", MODE_PRIVATE)
+            sharedPreferences.edit().clear().commit()
+            val intent = Intent(this@HomeActivity, MainActivity::class.java)
+            startActivity(intent)
+        }
 
         val navView: BottomNavigationView = binding.navView
 

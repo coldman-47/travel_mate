@@ -12,9 +12,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.fragment.app.FragmentManager
 import com.google.firebase.annotations.concurrent.Background
 import com.google.firebase.firestore.DocumentSnapshot
 import fr.ece.travel_mate.data.Hotel
+
 
 import fr.ece.travel_mate.placeholder.PlaceholderContent.PlaceholderItem
 import fr.ece.travel_mate.databinding.FragmentHotelItemBinding
@@ -29,9 +32,9 @@ import kotlin.math.log
  * TODO: Replace the implementation with code for your data type.
  */
 class MyHotelItemRecyclerViewAdapter(
-    private val values: MutableList<DocumentSnapshot>
+    private val values: MutableList<DocumentSnapshot>,
+    private val fragmentManager: FragmentManager
 ) : RecyclerView.Adapter<MyHotelItemRecyclerViewAdapter.ViewHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             FragmentHotelItemBinding.inflate(
@@ -47,8 +50,9 @@ class MyHotelItemRecyclerViewAdapter(
         holder.nameView.text = values[position].get("nom").toString()
         holder.locView.text = values[position].get("adresse").toString()
         holder.priceView.text = values[position].get("tarif").toString() + "€/jour"
-        /*
-        */
+        holder.itemView.setOnClickListener {
+            HotelDetailsFragment(values[position]).show(fragmentManager, "boom")
+        }
         LoadImages(holder.imgView).execute((values[position].get("images") as ArrayList<*>)[0].toString())
     }
 
@@ -70,7 +74,7 @@ class MyHotelItemRecyclerViewAdapter(
         val distView: TextView = binding.hotelDistance
         val priceView: TextView = binding.hotelPrice
         val imgView: ImageView = binding.hotelImg
-
+        val itemView: CardView = binding.hotelItemCard
         /*
         override fun toString(): String {
             return super.toString() + " '" + contentView.text + "'"
@@ -78,21 +82,16 @@ class MyHotelItemRecyclerViewAdapter(
         */
     }
 
-    class LoadImages(var imageView: ImageView) :
+    class LoadImages(private var imageView: ImageView) :
         AsyncTask<String?, Void?, Bitmap?>() {
 
-        fun LoadImages(imageView: ImageView){
-            this.imageView=imageView;
-            //Toast.makeText()
-        }
-
         override fun onPostExecute(result: Bitmap?) {
+
             imageView.setImageBitmap(result)
         }
 
         override fun doInBackground(vararg url: String?): Bitmap? {
             var bimage: Bitmap? = null
-            Log.d(TAG, "Boom: $url")
             try {
                 val imgUrl = URL(url[0]).openStream()
                 bimage = BitmapFactory.decodeStream(imgUrl)

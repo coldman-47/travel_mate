@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -44,10 +45,9 @@ class HomeActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
             )
         )
-        val btn = findViewById<Button>(R.id.hotelBtn)
-        btn.setOnClickListener({
-//            val modal = HotelListDialogFragment()
-//            modal.show(supportFragmentManager, HotelListDialogFragment.toString())
+        val hotelBtn = findViewById<Button>(R.id.hotelBtn)
+        val destBtn = findViewById<Button>(R.id.destinationBtn)
+        hotelBtn.setOnClickListener({
             setContentView(FragmentHotelBinding.inflate(layoutInflater).root)
         })
 

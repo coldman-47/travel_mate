@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.google.firebase.firestore.DocumentSnapshot
 import fr.ece.travel_mate.databinding.FragmentHotelListDialogListDialogItemBinding
 import fr.ece.travel_mate.databinding.FragmentHotelListDialogListDialogBinding
 
@@ -23,7 +24,7 @@ const val ARG_ITEM_COUNT = "item_count"
  *    HotelListDialogFragment.newInstance(30).show(supportFragmentManager, "dialog")
  * </pre>
  */
-class HotelListDialogFragment : BottomSheetDialogFragment() {
+class HotelListDialogFragment(private val value: DocumentSnapshot?) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentHotelListDialogListDialogBinding? = null
 
@@ -42,6 +43,7 @@ class HotelListDialogFragment : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        activity?.findViewById<TextView>(R.id.test)?.text = value?.get("name").toString()
         activity?.findViewById<RecyclerView>(R.id.list)?.layoutManager =
             LinearLayoutManager(context)
 //        activity?.findViewById<RecyclerView>(R.id.list)?.adapter =
@@ -82,7 +84,7 @@ class HotelListDialogFragment : BottomSheetDialogFragment() {
 
         // TODO: Customize parameters
         fun newInstance(itemCount: Int): HotelListDialogFragment =
-            HotelListDialogFragment().apply {
+            HotelListDialogFragment(value = null).apply {
                 arguments = Bundle().apply {
                     putInt(ARG_ITEM_COUNT, itemCount)
                 }

@@ -1,7 +1,8 @@
 package fr.ece.travel_mate
 
+import HotelDetailsViewModel
+import android.content.ContentValues
 import android.content.ContentValues.TAG
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,25 +10,28 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
-import androidx.core.view.forEach
-import fr.ece.travel_mate.data.Hotel
-import java.net.URL
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.findFragment
+import androidx.lifecycle.Observer
+import fr.ece.travel_mate.placeholder.PlaceholderContent
 
 /**
  * A fragment representing a list of Items.
  */
-class HotelItemFragment : Fragment() {
+class HotelImageFragment() : Fragment() {
 
-    private var columnCount = 1
+    private val model: HotelDetailsViewModel by activityViewModels()
+
+    private var columnCount = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        Log.d(ContentValues.TAG, "gang")
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
@@ -37,23 +41,34 @@ class HotelItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_hotels_list, container, false)
-
+//        fragmentManager.fragments
+        val view = inflater.inflate(R.layout.fragment_hotel_image_list, container, false)
         // Set the adapter
+        if (view is RecyclerView) {
+            with(view) {
+                model.selected.observe(viewLifecycleOwner, Observer { item ->
+                    columnCount = item.size
+                    layoutManager = when {
+                        columnCount <= 1 -> LinearLayoutManager(context)
+                        else -> GridLayoutManager(context, columnCount)
+                    }
+                    view.adapter = MyHotelImageRecyclerViewAdapter(item, model)
+                })
+            }
+        }
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         if (view is RecyclerView) {
             with(view) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                val hotelObj = Hotel().getHotels().addOnSuccessListener { result ->
-                    run {
-                        adapter = MyHotelItemRecyclerViewAdapter(result.documents, parentFragmentManager)
-                    }
-                }
             }
         }
-        return view
     }
 
     companion object {
@@ -64,7 +79,7 @@ class HotelItemFragment : Fragment() {
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
-            HotelItemFragment().apply {
+            HotelImageFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }
